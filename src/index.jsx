@@ -1,13 +1,3 @@
-// import React from 'react'
-// import ReactDOM from 'react-dom/client'
-// import images from './assets/images.json'
-
-
-
-
-
-
-
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
