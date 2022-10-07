@@ -1,12 +1,12 @@
 import React from 'react'
-import usersJson from '../../assets/users.json';
+
 import UsersItem from './UsersItem';
 
-const UsersList = () => {
+const UsersList = ({users, onDeleteUser}) => {
   return (
     <div className="mb-5">
-      {usersJson.map(user => (
-        <UsersItem key={user.id} user={user} />
+      {users.map(user => (
+        <UsersItem onDeleteUser={onDeleteUser} key={user.id} user={user} />
       ))}
     </div>
   )

@@ -1,8 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const UsersItem = ({ user }) => {
-  const { name, email, bio, skils, isOpenToWork } = user;
+const UsersItem = ({ user, onDeleteUser }) => {
+  const { id, name, email, bio, skils, isOpenToWork } = user;
+
+  const handleDelete = () => {
+    onDeleteUser(id)
+  }
+
   return (
     <div className="card my-3">
       <div className="card-body">
@@ -21,6 +26,7 @@ const UsersItem = ({ user }) => {
         </div>
         <div className="d-flex">
           <button
+            onClick={handleDelete}
             type="button"
             className="card-link btn-link"
           >
