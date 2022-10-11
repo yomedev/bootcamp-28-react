@@ -1,8 +1,8 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+// import PropTypes from 'prop-types'
 
 const UsersItem = ({ user, onDeleteUser }) => {
-  const { id, name, email, bio, skils, isOpenToWork } = user;
+  const { id, name, email, bio, skills, isOpenToWork } = user;
 
   const handleDelete = () => {
     onDeleteUser(id)
@@ -18,9 +18,9 @@ const UsersItem = ({ user, onDeleteUser }) => {
         <h6 className="card-subtitle mb-2 text-muted">{email}</h6>
         <p className="card-text">{bio}</p>
         <div className="d-flex mb-2">
-          {skils.map(skil => (
-            <span key={skil} className="badge bg-dark me-1">
-              {skil}
+          {skills.map( skill=> (
+            <span key={skill} className="badge bg-dark me-1">
+              {skill}
             </span>
           ))}
         </div>
@@ -40,13 +40,13 @@ const UsersItem = ({ user, onDeleteUser }) => {
 
 export default UsersItem
 
-UsersItem.propTypes = {
-  user: PropTypes.exact({
-    id: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-    email: PropTypes.string.isRequired,
-    bio: PropTypes.string.isRequired,
-    skils: PropTypes.arrayOf(PropTypes.string.isRequired),
-    isOpenToWork: PropTypes.bool.isRequired,
-  }).isRequired,
-};
+// UsersItem.propTypes = {
+//   user: PropTypes.exact({
+//     id: PropTypes.number.isRequired,
+//     name: PropTypes.string.isRequired,
+//     email: PropTypes.string.isRequired,
+//     bio: PropTypes.string.isRequired,
+//     skills: PropTypes.arrayOf(PropTypes.string.isRequired),
+//     isOpenToWork: PropTypes.bool.isRequired,
+//   }).isRequired,
+// };
