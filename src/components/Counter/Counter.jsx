@@ -1,79 +1,124 @@
-import { Component } from 'react'
+import axios from "axios";
+import { useEffect, useState, useRef } from "react";
 
-// Змінна стейту і пропсів викликає render і так відбувається динамічне відображення даннів на сторінці
-// Передача callback в setState
+const COUNTER_KEY = 'counter-key'
 
-class Counter extends Component {
+const getLocalData = () => {
+  return JSON.parse(localStorage.getItem(COUNTER_KEY))
+}
 
-  state = {
-    counter: 4,
+export const Counter = ({ someProp }) => {
+  const [android, setAndroid] = useState(() => getLocalData()?.android ?? 0)
+  const [iphone, setIphone] = useState(() => getLocalData()?.iphone ?? 0)
+  const prevProp = useRef(null)
+  const containerRef = useRef(null)
+
+  const stateMap = {
+    android: setAndroid,
+    iphone: setIphone,
   }
 
-  handleMinus = () => {
-    this.setState((prevState) => ({ counter: prevState.counter - 1 }))
-  }
-
-  handlePlus = () => {
-    this.setState((prevState) => ({
-      counter: prevState.counter + 1,
-    }))
-  }
-
-  handleUpdate = (event) => {
-    console.log(event.target);
-    const { name } = event.target
-    switch (name) {
-      case "minus":
-        this.setState((prevState) => ({ counter: prevState.counter - 1 }))
-        break
-      case "plus":
-        this.setState((prevState) => ({ counter: prevState.counter + 1 }))
-        break
-
-      default: new Error('Something went wrong!')
+  useEffect(() => {
+    const fetch = async () => {
+      // axios
     }
+    fetch()
+
+    (async () => {
+
+    })()
+  }, [])
+
+  const handleChange = event => {
+    const { name } = event.target
+    stateMap[name](prev => prev + 1)
   }
+  console.log(containerRef.current);
+  useEffect(() => {
+    if (prevProp.current !== someProp) {
+      //...
+    }
+    prevProp.current = someProp
 
-  render() {
-    const { counter } = this.state
-    return (
-      <div className="mb-5 p-5 text-white bg-dark rounded-3">
-        <h2 className="text-center">Counter</h2>
-        <p className="text-center my-5" style={{ fontSize: 80 }}>{counter}</p>
+    console.log(containerRef.current.scrollHeight + 200);
+    localStorage.setItem(COUNTER_KEY, JSON.stringify({ android, iphone }))
+  }, [android, iphone, someProp])
 
-        <div className="d-flex align-items-center justify-content-center w-100">
-
-          <Button label="Plus" name="plus" onClick={this.handleUpdate} />
-          <Button label="Minus" name="minus" onClick={this.handleUpdate} />
-
-          {/* <button name="minus" onClick={this.handleUpdate} type='button' className="btn p-3 btn-outline-light w-25 mx-2">
-            Minus
-          </button>
-          <button name="plus" onClick={this.handleUpdate} type='button' className="btn p-3 btn-outline-light w-25 mx-2">
-            Plus
-          </button> */}
-        </div>
-      </div>
-    )
-  }
-}
-
-const Button = ({label, name, onClick}) => {
   return (
-    <button name={name} onClick={onClick} type='button' className="btn p-3 btn-outline-light w-25 mx-2">
-      {label}
-    </button>
-  )
+    <div ref={containerRef} className="mb-5 p-4 text-white bg-dark rounded-3">
+      <p className="text-center my-3" style={{ fontSize: 50 }}>
+        Android: {android}
+      </p>
+      <p className="text-center my-3" style={{ fontSize: 50 }}>
+        iPhone: {iphone}
+      </p>
+
+      <div className="d-flex align-items-center justify-content-center w-100">
+        <button
+          type="button"
+          name="android"
+          className="btn p-3 btn-outline-light w-25 mx-2"
+          onClick={handleChange}
+        >
+          Android
+        </button>
+        <button
+          type="button"
+          name="iphone"
+          className="btn p-3 btn-outline-light w-25 mx-2"
+          onClick={handleChange}
+        >
+          iPhone
+        </button>
+      </div>
+    </div>
+  );
 }
 
-// Counter.defaultProps = {
-//   counter: 4
-// }
+// import { Component } from 'react';
 
-// const Counter = ({counter = 4}) => {
-//   return (
-//     
-//   )
-// }
+// export class Counter extends Component {
+//   state = {
+//     android: 0,
+//     iphone: 0,
+//   };
 
-export default Counter
+//   handleUpdate = event => {
+//     const { name } = event.target;
+//     this.setState(prevState => ({ [name]: prevState[name] + 1 }));
+//   };
+
+//   render() {
+//     const { android, iphone } = this.state;
+
+//     return (
+//       <div className="mb-5 p-4 text-white bg-dark rounded-3">
+//         <p className="text-center my-3" style={{ fontSize: 50 }}>
+//           Android: {android}
+//         </p>
+//         <p className="text-center my-3" style={{ fontSize: 50 }}>
+//           iPhone: {iphone}
+//         </p>
+
+//         <div className="d-flex align-items-center justify-content-center w-100">
+//           <button
+//             type="button"
+//             name="android"
+//             className="btn p-3 btn-outline-light w-25 mx-2"
+//             onClick={this.handleUpdate}
+//           >
+//             Android
+//           </button>
+//           <button
+//             type="button"
+//             name="iphone"
+//             className="btn p-3 btn-outline-light w-25 mx-2"
+//             onClick={this.handleUpdate}
+//           >
+//             iPhone
+//           </button>
+//         </div>
+//       </div>
+//     );
+//   }
+// } 
