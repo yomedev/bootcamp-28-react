@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 
+const modalRoot = document.getElementById('modal')
 
 export const Modal = ({ children, onModalClose }) => {
 
@@ -18,7 +19,7 @@ export const Modal = ({ children, onModalClose }) => {
       }
     }
 
-    
+
 
     window.addEventListener('keydown', handleCloseKey)
 
@@ -27,7 +28,7 @@ export const Modal = ({ children, onModalClose }) => {
     }
   }, [onModalClose])
 
-  return (
+  const jsx = (
     <>
       <div className="modal-backdrop fade show" />
 
@@ -45,6 +46,8 @@ export const Modal = ({ children, onModalClose }) => {
       </div>
     </>
   )
+
+  return ReactDOM.createPortal(jsx, modalRoot)
 
 }
 

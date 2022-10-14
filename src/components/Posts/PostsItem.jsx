@@ -1,4 +1,6 @@
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
+import { useContext } from 'react';
+import { AuthContext } from '../../context/AuthContext';
 
 import { cutString } from '../../helpers/cut-string';
 
@@ -18,6 +20,9 @@ import { cutString } from '../../helpers/cut-string';
 // };
 
 export const PostsItem = ({ post }) => {
+
+  const { isAuth } = useContext(AuthContext)
+
   return (
     <div className="col-12 col-xl-6 col-xxl-4 mb-4">
       <div className="card">
@@ -39,7 +44,8 @@ export const PostsItem = ({ post }) => {
             <li className="list-group-item">Created: {formatDistanceToNow(new Date(post.created_at))}</li>
           </ul>
 
-          <div className="d-flex">
+          { isAuth && <div className="d-flex">
+
             <button type="button" className="btn btn-danger">
               Delete post
             </button>
@@ -47,7 +53,9 @@ export const PostsItem = ({ post }) => {
             <a href={`/posts/${post.id}`} className="btn btn-primary ms-3">
               Read post
             </a>
-          </div>
+            
+          </div>}
+
         </div>
       </div>
     </div>

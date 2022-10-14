@@ -1,4 +1,4 @@
-import { Component, useEffect, useState, useRef } from 'react';
+import { Component, useEffect, useState, useRef, useMemo } from 'react';
 
 import { Button } from '../Button/Button';
 import { PostsError } from './PostsError/PostsError';
@@ -9,8 +9,11 @@ import { SearchPosts } from './SearchPosts';
 
 import { getPostsService } from '../../services/postsService';
 import { Status } from '../../constants/Status';
+import { func } from 'prop-types';
 
 const HEADER_OFFSET = 600;
+
+// [0, 0]
 
 export const Posts = () => {
   const [posts, setPosts] = useState(null)
@@ -18,10 +21,11 @@ export const Posts = () => {
   const [search, setSearch] = useState('')
   const containerRef = useRef(null)
   const isMounted = useRef(false)
-
+  
   useEffect(() => {
     getFetchedPosts()
   }, [])
+
 
   useEffect(() => {
 
@@ -66,6 +70,27 @@ export const Posts = () => {
     setSearch(event.target.value)
   }
 
+  
+
+  const filteredPosts = useMemo(() => {
+    return posts.filter(post => post.name.include(search))
+  }, [search])
+
+  /*
+  searchDep: car 
+  searchDep !== searchField ? operation() : result
+  memo {
+    searchField: car
+    result: carPosts
+  }
+   */
+
+  const viewPosts = filteredPosts || posts
+
+  
+ 
+  
+
   const handleSubmitRequest = () => {
     getFetchedPosts({ search })
   }
@@ -88,8 +113,8 @@ export const Posts = () => {
     <>
       <SearchPosts search={search} onChangeSearch={handleChangeSearch} onSearchRequest={handleSubmitRequest} />
 
-      <div className="container-fluid g-0 pb-5 mb-5">
-        <div ref={containerRef} className="row">
+      <div ref={containerRef} className="container-fluid g-0 pb-5 mb-5">
+        <div  className="row">
           {posts?.data.map(post => (
             <PostsItem key={post.id} post={post} />
           ))}
