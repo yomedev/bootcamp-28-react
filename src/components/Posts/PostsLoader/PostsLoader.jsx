@@ -1,4 +1,4 @@
-import { Skeleton } from '../Skeleton/Skeleton';
+import { Skeleton } from '../../Skeleton/Skeleton';
 
 export const PostsLoader = ({ amount = 9 }) => {
   return (
@@ -19,9 +19,18 @@ export const PostsLoader = ({ amount = 9 }) => {
                   <Skeleton className="w-50" />
                 </div>
 
+                <ul className="list-group list-group-flush my-4">
+                  <li className="list-group-item d-flex align-items-center">
+                    Views: <Skeleton className="w-25 ms-2" />
+                  </li>
+                  <li className="list-group-item d-flex align-items-center">
+                    Created: <Skeleton className="w-25 ms-2" />
+                  </li>
+                </ul>
+
                 <div className="d-flex mt-3">
-                  <div className="btn disabled btn-danger">Delete post</div>
-                  <div className="btn btn-primary disabled ms-3">Read post</div>
+                <div className="btn btn-link disabled">Delete post</div>
+                  <div className="btn btn-link disabled ms-3">Read post</div>
                 </div>
               </div>
             </div>

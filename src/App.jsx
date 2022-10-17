@@ -1,33 +1,38 @@
 import Layout from './components/Layout/Layout'
 import Header from './components/Layout/Header/Header'
-import { Posts } from './components/Posts/Posts';
-import { Counter } from './components/Counter/Counter';
-import { TimerComponent } from './components/Timer/TimerComponent';
-import { Memo } from './Memo/Memo';
-import { AuthProvider } from './context/AuthContext';
-import {Rerender} from './components/Rerender/Rerender'
+
+import { HomePage } from './pages/HomePage/HomePage';
+import { PostsListPage } from './pages/PostsListPage/PostsListPage';
+import { SinglePostPage } from './pages/SinglePostPage/SinglePostPage';
+import { NewPostPage } from './pages/NewPostPage/NewPostPage';
+import { NotFoundPage } from './pages/NotFoundPage/NotFoundPage';
+import { ExercisesPage } from './pages/ExercisesPage/ExercisesPage';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { CommentsPage } from './pages/SinglePostPage/CommentsPage/CommentsPage';
+import { RerenderPage } from './pages/ExercisesPage/RerenderPage/RerenderPage';
 
 export const App = () => {
   return (
-    <AuthProvider>
-      <Layout>
-        <Header title="Hello world!" />
-        {/* <TimerComponent /> */}
-        {/* <Counter /> */}
-        {/* <Posts /> */}
-        {/* <Memo /> */}
-        <Rerender />
-      </Layout>
-    </AuthProvider>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />} >
+          <Route index element={<HomePage />} />
+          <Route path="/posts" element={<PostsListPage />} />
 
+          <Route path="/posts/:postId" element={<SinglePostPage />} >
+            <Route path="comments" element={<CommentsPage />} />
+          </Route>
 
-
+          <Route path="/new-post" element={<NewPostPage />} />
+          <Route path="/exercises" element={<ExercisesPage />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
 
   );
 };
 
-// new Counter() -> render()
-// Counter() -> Counter()
-
-
 export default App
+
+// comments

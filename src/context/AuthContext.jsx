@@ -1,9 +1,9 @@
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 
 export const AuthContext = createContext(null)
 
 export const AuthProvider = ({ children }) => {
-  const [isAuth, setIsAuth] = useState(false)
+  const [isAuth, setIsAuth] = useState(true)
   const [username, setUsername] = useState('')
 
   const login = (name, password) => {
@@ -14,10 +14,19 @@ export const AuthProvider = ({ children }) => {
     }
     alert('Invalid password')
   }
+ 
+  const logout = () => {
+    setIsAuth(false)
+  }
 
   return (
-    <AuthContext.Provider value={{ isAuth, username, login, setUsername }}>
+    <AuthContext.Provider value={{ isAuth, username, login, logout }}>
       {children}
     </AuthContext.Provider>
   )
 }
+
+export const useAuth = () => {
+  return useContext(AuthContext)
+}
+
