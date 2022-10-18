@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { toast } from 'react-toastify';
 
@@ -15,6 +16,7 @@ const initialState = {
 export const NewPostPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [form, setForm] = useState(initialState);
+  const navigate = useNavigate()
 
   const handleChange = event => {
     const { name, value } = event.target;
@@ -34,7 +36,9 @@ export const NewPostPage = () => {
 
     setIsLoading(true);
     createNewPostService(form)
-      .then(() => {
+      .then((post) => {
+        console.log(post);
+        navigate(`/posts/${post.id}`, { state: { isPostCreate: true } })
         toast.success('You have successfully created a new post!');
       })
       .catch(() => {

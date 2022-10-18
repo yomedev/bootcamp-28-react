@@ -6,7 +6,6 @@ import styled from '@emotion/styled';
 
 export const Nav = () => {
   const { logout } = useAuth()
-  console.log(Link);
 
   return (
     <div className="d-flex flex-column justify-content-between h-100">

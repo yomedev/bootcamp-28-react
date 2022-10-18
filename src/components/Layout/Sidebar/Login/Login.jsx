@@ -16,7 +16,6 @@ export const Login = () => {
 
   const handleChange = (event) => {
     const { value, name } = event.target
-    console.log(name, value);
     switch (name) {
       case 'username':
         setUsername(value)

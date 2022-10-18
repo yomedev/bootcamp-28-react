@@ -8,16 +8,19 @@ import { PostsItem } from '../../components/Posts/PostsItem/PostsItem';
 import { PostsLoader } from '../../components/Posts/PostsLoader/PostsLoader';
 import { Status } from '../../constants/fetch-status';
 import { getPostsService } from '../../services/postsService';
+import { Navigate, useSearchParams } from 'react-router-dom';
 
 
 export const PostsListPage = () => {
   const [posts, setPosts] = useState(null);
-
-  const [page, setPage] = useState(1)
+  const [searchParams, setSearchParams] = useSearchParams()
+  const page = searchParams.get('page') ?? 1;
+  const search = searchParams.get('search') ?? '';
+  console.log(search);
+  // const [page, setPage] = useState(1)
 
   const [status, setStatus] = useState(Status.IDLE);
-  const [search, setSearch] = useState('');
-
+  // const [search, setSearch] = useState('');
   useEffect(() => {
     setStatus(Status.LOADING);
     getPostsService({ search, page })
@@ -26,6 +29,7 @@ export const PostsListPage = () => {
         setPosts(data);
       })
       .catch(() => setStatus(Status.ERROR));
+
   }, [search, page]);
 
   if (status === Status.LOADING || status === Status.IDLE) {
@@ -43,8 +47,7 @@ export const PostsListPage = () => {
 
   return (
     <>
-      <PostsSearch defaultValue={search} onSubmit={setSearch} />
-
+      <PostsSearch />
       <div className="container-fluid g-0 pb-5 mb-5">
         <div className="row">
           {posts.data.map(post => (
@@ -59,13 +62,14 @@ export const PostsListPage = () => {
             <Button
               key={index}
               disabled={index + 1 === posts.page}
-              onClick={() => setPage(index + 1)}
+              onClick={() => setSearchParams({ page: index + 1, search: search})}
             >
               {index + 1}
             </Button>
           ))}
         </div>
       </div>
+
     </>
   );
 };

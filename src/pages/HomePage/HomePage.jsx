@@ -1,4 +1,4 @@
-export const HomePage = () => {
+const HomePage = () => {
   return (
     <>
       <div className="p-5 mb-4 bg-white border rounded-3">
@@ -47,3 +47,5 @@ export const HomePage = () => {
     </>
   );
 };
+
+export default HomePage

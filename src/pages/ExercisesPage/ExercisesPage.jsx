@@ -1,3 +1,4 @@
+import { NavLink, Outlet } from "react-router-dom";
 import { CounterPage } from "./CounterPage/CounterPage";
 import { RerenderPage } from "./RerenderPage/RerenderPage";
 import { TimerPage } from "./TimerPage/TimerPage";
@@ -14,12 +15,13 @@ export const ExercisesPage = () => {
       <ul className="nav nav-tabs mb-5">
         {subPages.map(item => (
           <li key={item.href} className="nav-item">
-            <a className="nav-link" href={item.href}>
+            <NavLink className="nav-link" to={item.href}>
               {item.title}
-            </a>
+            </NavLink>
           </li>
         ))}
       </ul>
+      <Outlet />
     </>
   );
 };

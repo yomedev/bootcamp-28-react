@@ -1,14 +1,22 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 import { Button } from '../../Button/Button';
 
-export const PostsSearch = ({ defaultValue = '', onSubmit }) => {
-  const [value, setValue] = useState(defaultValue);
+export const PostsSearch = () => {
+  const [searchParams, setSearchParams] = useSearchParams()
+  const search = searchParams.get('search') ?? ''
+  const queryParams = useMemo(() => [...searchParams].reduce((acc, [key, value]) => {
+    acc[key] = value
+    return acc
+  }, {}), [search])
+  console.log(queryParams);
+  const [value, setValue] = useState(search);
   const handleChange = event => setValue(event.target.value);
 
   const handleSubmit = event => {
     event.preventDefault();
-    onSubmit(value);
+    setSearchParams({ ...queryParams, search: value, page: 1 })
   };
 
   return (
