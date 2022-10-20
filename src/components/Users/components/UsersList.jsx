@@ -1,12 +1,13 @@
 import React from 'react'
+import { useSelector } from 'react-redux';
 
 import UsersItem from './UsersItem';
 
-const UsersList = ({users, onDeleteUser}) => {
+const UsersList = ({users}) => {
   return (
     <div className="mb-5">
       {users.map(user => (
-        <UsersItem onDeleteUser={onDeleteUser} key={user.id} user={user} />
+        <UsersItem key={user.id} user={user} />
       ))}
     </div>
   )

@@ -4,9 +4,10 @@ import { RerenderPage } from "./RerenderPage/RerenderPage";
 import { TimerPage } from "./TimerPage/TimerPage";
 
 const subPages = [
-  { href: '/exercises/timer', title: 'Timer' },
-  { href: '/exercises/counter', title: 'Counter' },
-  { href: '/exercises/re-render', title: 'Re-render' },
+  { href: 'timer', title: 'Timer' },
+  { href: 'counter', title: 'Counter' },
+  { href: 're-render', title: 'Re-render' },
+  { href: 'users', title: 'Users list' },
 ];
 
 export const ExercisesPage = () => {

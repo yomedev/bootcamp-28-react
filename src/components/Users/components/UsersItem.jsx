@@ -1,11 +1,14 @@
 import React from 'react'
+import { useDispatch } from 'react-redux';
+import { deleteUserAction } from '../../../redux/users/action.users';
 // import PropTypes from 'prop-types'
 
-const UsersItem = ({ user, onDeleteUser }) => {
+const UsersItem = ({ user }) => {
   const { id, name, email, bio, skills, isOpenToWork } = user;
+  const dispatch = useDispatch()
 
   const handleDelete = () => {
-    onDeleteUser(id)
+    dispatch(deleteUserAction(id))
   }
 
   return (

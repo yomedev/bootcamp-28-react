@@ -1,4 +1,6 @@
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { changeUsersSkillsAction } from '../../../redux/users/action.users'
 
 const skills = [
   { value: 'all', label: 'All' },
@@ -7,7 +9,15 @@ const skills = [
   { value: "vue", label: "Vue" },
 ]
 
-const SkillsFilters = ({ skill, onChangeSkills }) => {
+const SkillsFilters = () => {
+
+  const skill = useSelector(state => state.users.skills)
+  const dispatch = useDispatch()
+
+  const handleChange = (event) => {
+    const { value } = event.target
+    dispatch(changeUsersSkillsAction(value))
+  }
 
   return (
     <fieldset className="ms-5">
@@ -19,7 +29,7 @@ const SkillsFilters = ({ skill, onChangeSkills }) => {
             <div key={value} className="form-check me-4">
               <label className="form-check-label">
                 <span>{label}</span>
-                <input checked={value === skill} onChange={onChangeSkills} value={value} className="form-check-input" type="radio" name="skill" />
+                <input checked={value === skill} onChange={handleChange} value={value} className="form-check-input" type="radio" name="skill" />
               </label>
             </div>
           ))

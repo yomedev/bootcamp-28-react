@@ -3,6 +3,8 @@ import { lazy, Suspense } from 'react';
 import Layout from './components/Layout/Layout'
 import Header from './components/Layout/Header/Header'
 
+import { store } from './redux/store';
+
 // import { HomePage } from './pages/HomePage/HomePage';
 import { PostsListPage } from './pages/PostsListPage/PostsListPage';
 import { SinglePostPage } from './pages/SinglePostPage/SinglePostPage';
@@ -14,6 +16,7 @@ import { CommentsPage } from './pages/SinglePostPage/CommentsPage/CommentsPage';
 import { RerenderPage } from './pages/ExercisesPage/RerenderPage/RerenderPage';
 import { TimerPage } from './pages/ExercisesPage/TimerPage/TimerPage';
 import { CounterPage } from './pages/ExercisesPage/CounterPage/CounterPage';
+import { Users } from './components/Users/Users';
 
 const HomePage = lazy(() => import('./pages/HomePage/HomePage'))
 
@@ -35,6 +38,7 @@ export const App = () => {
               <Route path="timer" element={<TimerPage />} />
               <Route path="counter" element={<CounterPage />} />
               <Route path="re-render" element={<RerenderPage />} />
+              <Route path="users" element={<Users />} />
             </Route>
 
             <Route path="*" element={<Navigate to="/" />} />
