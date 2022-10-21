@@ -1,4 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
+import { decrementAction, incrementAction } from '../../../redux/counter/action.counter';
+
 
 export const CounterPage = () => {
   const counter = useSelector(state => state.counter)
@@ -7,11 +9,11 @@ export const CounterPage = () => {
   // console.log(counter);
 
   const handleIncrement = () => {
-    dispatch({type: 'increment'})
+    dispatch(incrementAction())
   }
 
   const handleDecrement = () => {
-    dispatch({type: 'decrement'})
+    dispatch(decrementAction())
   }
 
   return (

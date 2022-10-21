@@ -1,10 +1,11 @@
-import { Component, useMemo, useState } from 'react';
+import { Component, useId, useMemo, useState } from 'react';
 
 import { FiPlus } from 'react-icons/fi';
 import { useDispatch, useSelector } from 'react-redux';
 
 import usersJson from '../../assets/users.json';
-import { changeUsersAvailabilityAction, changeUsersSearchAction, changeUsersSkillsAction, createUserAction, deleteUserAction, toggleNewUserModalAction } from '../../redux/users/action.users';
+import { createNewUserAction, deleteUserAction, toggleModalAction } from '../../redux/users/slice.users';
+
 import { TOGGLE_NEW_USER_MODAL } from '../../redux/users/types.users';
 import { Modal } from '../Modal/Modal';
 
@@ -17,38 +18,39 @@ import UsersList from './components/UsersList';
 
 
 export const Users = () => {
-  const { data: users, isModalOpen, isAvailable, skills, search } = useSelector(state => state.users)
+  const { data: users, isModalOpen, filters } = useSelector(state => state.users)
+  const { isAvailable, skills, search } = filters
   const dispatch = useDispatch()
+
 
   // const handleDeleteUser = userId => {
   //   dispatch(deleteUserAction(userId))
   // };
   const handleCreateNewUser = user => {
-    dispatch(createUserAction(user))
-    dispatch(toggleNewUserModalAction())
+    dispatch(createNewUserAction(user))
   };
 
   const toggleModal = () => {
-    dispatch(toggleNewUserModalAction())
+    dispatch(toggleModalAction())
   };
 
   // const handleChangeAvailability = () => {
   //   dispatch(changeUsersAvailabilityAction());
   // };
 
-  const handleChangeSkills = event => {
-    const { value } = event.target;
-    dispatch(changeUsersSkillsAction(value));
-  };
+  // const handleChangeSkills = event => {
+  //   const { value } = event.target;
+  //   dispatch(changeUsersSkillsAction(value));
+  // };
 
-  const handleChangeSearch = event => {
-    const { value } = event.target;
-    dispatch(changeUsersSearchAction(value))
-  };
+  // const handleChangeSearch = event => {
+  //   const { value } = event.target;
+  //   dispatch(changeUsersSearchAction(value))
+  // };
 
-  const handleResetSearch = () => {
-    dispatch(changeUsersSearchAction(''));
-  };
+  // const handleResetSearch = () => {
+  //   dispatch(changeUsersSearchAction(''));
+  // };
 
   const filteredUsers = useMemo(() => {
     return users.filter(({ isOpenToWork, skills: userSkills, name }) => {
@@ -65,7 +67,7 @@ export const Users = () => {
   return (
     <>
       <div className="d-flex align-items-center mb-5">
-        <AvailabilityFilters  />
+        <AvailabilityFilters />
         <SkillsFilters />
 
         <button type="button" className="btn btn-primary btn-lg ms-auto" onClick={toggleModal} >
@@ -73,7 +75,7 @@ export const Users = () => {
         </button>
       </div>
 
-      <SearchInput value={search} onChangeSearch={handleChangeSearch} onSearchReset={handleResetSearch} />
+      <SearchInput value={search} />
 
       {isModalOpen && (
         <Modal onModalClose={toggleModal}>
@@ -85,6 +87,10 @@ export const Users = () => {
 
     </>
   )
+}
+
+Users.propTypes = {
+
 }
 
 // export class Users extends Component {
