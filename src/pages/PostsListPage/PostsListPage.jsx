@@ -9,28 +9,22 @@ import { PostsLoader } from '../../components/Posts/PostsLoader/PostsLoader';
 import { Status } from '../../constants/fetch-status';
 import { getPostsService } from '../../services/postsService';
 import { Navigate, useSearchParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { getPostsThunk } from '../../redux/posts/thunk.posts';
 
 
 export const PostsListPage = () => {
-  const [posts, setPosts] = useState(null);
+  const dispatch = useDispatch()
+  // state => posts => {posts, status}
+  const {posts, status} = useSelector(state => state.posts)
+
   const [searchParams, setSearchParams] = useSearchParams()
   const page = searchParams.get('page') ?? 1;
   const search = searchParams.get('search') ?? '';
-  console.log(search);
-  // const [page, setPage] = useState(1)
 
-  const [status, setStatus] = useState(Status.IDLE);
-  // const [search, setSearch] = useState('');
   useEffect(() => {
-    setStatus(Status.LOADING);
-    getPostsService({ search, page })
-      .then(data => {
-        setStatus(Status.SUCCESS);
-        setPosts(data);
-      })
-      .catch(() => setStatus(Status.ERROR));
-
-  }, [search, page]);
+    dispatch(getPostsThunk({page, search}))
+  }, [search, page, dispatch]);
 
   if (status === Status.LOADING || status === Status.IDLE) {
     return <PostsLoader />;
@@ -42,7 +36,6 @@ export const PostsListPage = () => {
 
   if (status === Status.SUCCESS && !posts) {
     return <div>Posts Not Found</div>
-    // <PostsNotFound />;
   }
 
   return (

@@ -10,7 +10,6 @@ export const PostsSearch = () => {
     acc[key] = value
     return acc
   }, {}), [search])
-  console.log(queryParams);
   const [value, setValue] = useState(search);
   const handleChange = event => setValue(event.target.value);
 

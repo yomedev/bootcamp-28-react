@@ -99,7 +99,6 @@ const usersSlice = createSlice({
     }
   }
 })
-console.log(usersSlice);
 
 export const usersReducer = usersSlice.reducer
 // const {reducer: userReducer} = usersSlice

@@ -22,7 +22,7 @@ const HomePage = lazy(() => import('./pages/HomePage/HomePage'))
 
 export const App = () => {
   return (
-    <BrowserRouter basename='/homework/'>
+    <BrowserRouter>
       
         <Routes>
           <Route path="/" element={<Layout />} >
