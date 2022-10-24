@@ -17,12 +17,13 @@ import { RerenderPage } from './pages/ExercisesPage/RerenderPage/RerenderPage';
 import { TimerPage } from './pages/ExercisesPage/TimerPage/TimerPage';
 import { CounterPage } from './pages/ExercisesPage/CounterPage/CounterPage';
 import { Users } from './components/Users/Users';
+import { Middleware } from './pages/ExercisesPage/Middleware/Middleware';
 
 const HomePage = lazy(() => import('./pages/HomePage/HomePage'))
 
 export const App = () => {
   return (
-    <BrowserRouter basename='/homework/'>
+    <BrowserRouter>
       
         <Routes>
           <Route path="/" element={<Layout />} >
@@ -39,6 +40,7 @@ export const App = () => {
               <Route path="counter" element={<CounterPage />} />
               <Route path="re-render" element={<RerenderPage />} />
               <Route path="users" element={<Users />} />
+              <Route path="middleware" element={<Middleware />} />
             </Route>
 
             <Route path="*" element={<Navigate to="/" />} />

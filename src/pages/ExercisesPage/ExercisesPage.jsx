@@ -8,6 +8,7 @@ const subPages = [
   { href: 'counter', title: 'Counter' },
   { href: 're-render', title: 'Re-render' },
   { href: 'users', title: 'Users list' },
+  { href: 'middleware', title: 'Middleware' },
 ];
 
 export const ExercisesPage = () => {

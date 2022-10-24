@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 
 import { Button } from '../../components/Button/Button';
@@ -21,16 +21,20 @@ export const PostsListPage = () => {
 
   const [status, setStatus] = useState(Status.IDLE);
   // const [search, setSearch] = useState('');
-  useEffect(() => {
+
+  const fetchPosts = useCallback(params => {
     setStatus(Status.LOADING);
-    getPostsService({ search, page })
+    getPostsService(params)
       .then(data => {
         setStatus(Status.SUCCESS);
         setPosts(data);
       })
       .catch(() => setStatus(Status.ERROR));
+  }, [])
 
-  }, [search, page]);
+  useEffect(() => {
+    fetchPosts({ page, search })
+  }, [search, page, fetchPosts]);
 
   if (status === Status.LOADING || status === Status.IDLE) {
     return <PostsLoader />;
@@ -62,7 +66,7 @@ export const PostsListPage = () => {
             <Button
               key={index}
               disabled={index + 1 === posts.page}
-              onClick={() => setSearchParams({ page: index + 1, search: search})}
+              onClick={() => setSearchParams({ page: index + 1, search: search })}
             >
               {index + 1}
             </Button>
