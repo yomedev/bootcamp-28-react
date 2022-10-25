@@ -11,6 +11,7 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
+import { postsApi } from "./rtk-posts/api.rtk-posts";
 
 
 export const store = configureStore({
@@ -20,7 +21,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }),
+    }).concat(postsApi.middleware),
   devTools: process.env.NODE_ENV === 'development'
 })
 

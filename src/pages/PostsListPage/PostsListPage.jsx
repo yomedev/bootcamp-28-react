@@ -10,7 +10,7 @@ import { Status } from '../../constants/fetch-status';
 import { getPostsService } from '../../services/postsService';
 import { Navigate, useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getPostsThunk } from '../../redux/posts/thunk.posts';
+import { deletePostThunk, getPostsThunk } from '../../redux/posts/thunk.posts';
 
 
 export const PostsListPage = () => {
@@ -21,6 +21,10 @@ export const PostsListPage = () => {
   const [searchParams, setSearchParams] = useSearchParams()
   const page = searchParams.get('page') ?? 1;
   const search = searchParams.get('search') ?? '';
+
+  const handleDelete = postId => {
+    dispatch(deletePostThunk({postId, params: {page, search}}))
+  }
 
   useEffect(() => {
     dispatch(getPostsThunk({page, search}))
@@ -44,7 +48,7 @@ export const PostsListPage = () => {
       <div className="container-fluid g-0 pb-5 mb-5">
         <div className="row">
           {posts.data.map(post => (
-            <PostsItem key={post.id} post={post} />
+            <PostsItem key={post.id} post={post} onDelete={handleDelete} />
           ))}
         </div>
       </div>

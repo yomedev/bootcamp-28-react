@@ -5,16 +5,18 @@ import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import { cutString } from '../../../helpers/cut-string';
 import { useDispatch } from 'react-redux';
 import { deletePostThunk } from '../../../redux/posts/thunk.posts';
+import { useDeletePostMutation } from '../../../redux/rtk-posts/api.rtk-posts';
 
-export const PostsItem = ({ post }) => {
-  const dispatch = useDispatch()
+export const PostsItem = ({ post, onDelete }) => {
+  
+  
 
   const [searchParams] = useSearchParams()
   const page = searchParams.get('page') ?? 1;
   const search = searchParams.get('search') ?? '';
 
   const handleDelete = () => {
-    dispatch(deletePostThunk({postId: post.id, params: {page, search}}))
+    onDelete(post.id)
   }
 
   const { isAuth } = useAuth()

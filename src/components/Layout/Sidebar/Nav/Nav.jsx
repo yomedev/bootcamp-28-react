@@ -15,6 +15,7 @@ export const Nav = () => {
         <NavLink to="/posts" style={{ textAlign: 'left', marginLeft: '-10px' }} className='btn btn-light'>Posts list</NavLink>
         <NavLink to="/new-post" style={{ textAlign: 'left', marginLeft: '-10px' }} className='btn btn-light'>Create new post</NavLink>
         <NavLink to="/exercises" style={{ textAlign: 'left', marginLeft: '-10px' }} className='btn btn-light'>React exercises</NavLink>
+        <NavLink to="/rtk-posts" style={{ textAlign: 'left', marginLeft: '-10px' }} className='btn btn-light'>RTK Posts list</NavLink>
       </div>
 
       <Button onClick={logout} className="btn-danger mt-auto">Log Out</Button>

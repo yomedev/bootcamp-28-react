@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 
 export const Button = ({disabled, type = 'button', className = 'btn-primary', isLoading, children, ...props }) => {
+  
   return (
     <button type={type} className={classNames('btn', className)} {...props} disabled={isLoading || disabled}>
       {isLoading ? (

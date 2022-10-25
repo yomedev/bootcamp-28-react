@@ -81,15 +81,11 @@ const usersSlice = createSlice({
     deleteUserAction: (state, action) => {
       state.data = state.data.filter(user => user.id !== action.payload)
     },
-    // createNewUserAction: (state, action) => {
-    //   state.data.unshift(action.payload)
-    //   state.isModalOpen = false
-    // },
     toggleModalAction: state => {
       state.isModalOpen = !state.isModalOpen
     },
-    clearState: () => {
-      return usersInitialState
+    changeSearchAction: (state, action) => {
+      state.search = action.payload
     }
   },
   extraReducers: {
@@ -102,7 +98,7 @@ const usersSlice = createSlice({
 
 export const usersReducer = usersSlice.reducer
 // const {reducer: userReducer} = usersSlice
-export const {deleteUserAction, toggleModalAction} = usersSlice.actions
+export const {deleteUserAction, toggleModalAction, changeSearchAction} = usersSlice.actions
 
 
 // dispatch(createNewUserAction(user))

@@ -4,9 +4,7 @@ import { RerenderPage } from "./RerenderPage/RerenderPage";
 import { TimerPage } from "./TimerPage/TimerPage";
 
 const subPages = [
-  { href: 'timer', title: 'Timer' },
   { href: 'counter', title: 'Counter' },
-  { href: 're-render', title: 'Re-render' },
   { href: 'users', title: 'Users list' },
 ];
 
