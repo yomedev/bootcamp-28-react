@@ -1,20 +1,19 @@
 import React, { useContext } from 'react'
-import { AuthContext } from '../../../context/AuthContext'
-import { Login } from './Login/Login'
-import { Nav } from './Nav/Nav'
+import { useSelector } from 'react-redux'
+import { Status } from '../../../constants/fetch-status'
+import { selectAuth } from '../../../redux/auth/select.auth'
+import { NotAuth } from './NotAuth/NotAuth'
+import { UserNav } from './UserNav/UserNav'
 
 const Sidebar = () => {
-  const { isAuth } = useContext(AuthContext)
-  
+  const { status } = useSelector(selectAuth)
   return (
-    <aside className="nav nav-pills p-5 bg-light w-100" style={{ maxWidth: '300px', height: 'auto' }}>
+    <aside className="nav nav-pills p-4 bg-light w-100" style={{ maxWidth: '300px' }}>
       <div className="d-flex flex-column" style={{ position: 'sticky', top: 30, left: 0, height: 'max-content' }}>
-        {isAuth ? <Nav /> : <Login />}
-
+        {status === Status.SUCCESS ? <UserNav /> : <NotAuth />}
       </div>
     </aside>
 
-    // {isAuth, username}
 
 
 

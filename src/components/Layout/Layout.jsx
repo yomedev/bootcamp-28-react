@@ -7,8 +7,8 @@ import { Outlet } from 'react-router-dom'
 
 const Layout = () => {
   return (
-    <AuthProvider>
-      <div className="d-flex h-100">
+    <>
+      <div className="d-flex h-100 ">
         <Sidebar />
 
         <main className="tab-content p-5 h-100" style={{ minHeight: '100vh', width: 'calc(100% - 300px)' }}>
@@ -20,7 +20,7 @@ const Layout = () => {
         </main>
       </div>
       <ToastContainer />
-    </AuthProvider>
+    </>
   )
 }
 

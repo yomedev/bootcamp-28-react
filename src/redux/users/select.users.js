@@ -14,7 +14,6 @@ export const selectUsersIsModalOpen = state => state.users.isModalOpen
 // }
 
 export const selectFilteredUsers = createSelector([selectUsersList, selectUsersSearch], (users, search) => {
-  console.log('hello');
   return users.filter(user => user.name.toLowerCase().includes(search.toLowerCase()))
 })
 

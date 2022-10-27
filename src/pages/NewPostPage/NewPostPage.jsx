@@ -30,19 +30,16 @@ export const NewPostPage = () => {
 
     const isEmpty = Object.values(form).some(item => !item);
     if (isEmpty) {
-      toast.error('Fill all required fields!');
       return;
     }
 
     setIsLoading(true);
     createNewPostService(form)
       .then((post) => {
-        console.log(post);
         navigate(`/posts/${post.id}`, { state: { isPostCreate: true } })
-        toast.success('You have successfully created a new post!');
       })
       .catch(() => {
-        toast.error('Something went wrong!');
+        console.log('Something went wrong!');
       })
       .finally(() => setIsLoading(false));
   };

@@ -3,23 +3,16 @@ import { useAuth } from '../../../context/AuthContext';
 import { Link, useLocation, useSearchParams } from 'react-router-dom';
 
 import { cutString } from '../../../helpers/cut-string';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { deletePostThunk } from '../../../redux/posts/thunk.posts';
 import { useDeletePostMutation } from '../../../redux/rtk-posts/api.rtk-posts';
 
 export const PostsItem = ({ post, onDelete }) => {
-  
-  
-
-  const [searchParams] = useSearchParams()
-  const page = searchParams.get('page') ?? 1;
-  const search = searchParams.get('search') ?? '';
-
+  const profile = useSelector(state => state.profile.data)
   const handleDelete = () => {
     onDelete(post.id)
   }
 
-  const { isAuth } = useAuth()
   const location = useLocation()
 
   return (
@@ -43,17 +36,17 @@ export const PostsItem = ({ post, onDelete }) => {
             <li className="list-group-item">Created: {formatDistanceToNow(new Date(post.created_at))}</li>
           </ul>
 
-          { isAuth && <div className="d-flex">
+          <div className="d-flex">
 
-            <button type="button" className="btn btn-danger" onClick={handleDelete}>
+            {profile?.id === post.user_id && <button type="button" className="btn btn-danger" onClick={handleDelete}>
               Delete post
-            </button>
+            </button>}
 
-            <Link to={`/posts/${post.id}`} state={{from: location}} className="btn btn-primary ms-3">
+            <Link to={`/posts/${post.id}`} state={{ from: location }} className="btn btn-primary ms-3">
               Read post
             </Link>
-            
-          </div>}
+
+          </div>
 
         </div>
       </div>

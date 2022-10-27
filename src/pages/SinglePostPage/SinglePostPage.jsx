@@ -15,14 +15,6 @@ export const SinglePostPage = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   const location = useLocation()
-  // const {isPostCreate} = location.state
-  console.log(location.state.from);
-
-  // useEffect(() => {
-  //   if (isPostCreate) {
-  //     console.log("Post created successfully");
-  //   }
-  // }, [isPostCreate])
 
   useEffect(() => {
     setIsLoading(true);
@@ -30,7 +22,6 @@ export const SinglePostPage = () => {
     getSinglePostService(postId)
       .then(setPost)
       .catch(() => {
-        toast.error('Something went wrong!');
       })
       .finally(() => setIsLoading(false));
   }, [postId]);
