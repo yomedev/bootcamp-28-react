@@ -6,6 +6,8 @@ import { TimerPage } from "./TimerPage/TimerPage";
 const subPages = [
   { href: 'counter', title: 'Counter' },
   { href: 'users', title: 'Users list' },
+  { href: 'render-prop', title: 'Render Prop' },
+  { href: 'hoc', title: 'HOC' },
 ];
 
 export const ExercisesPage = () => {

@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { Status } from "../../constants/fetch-status";
+import { getProfileThunk } from "../profile/thunk.profile";
 import { authInitialState } from "./initial-state.auth";
 import { loginThunk } from "./thunk.auth";
 
@@ -22,10 +23,13 @@ const authSlice = createSlice({
     },
     [loginThunk.rejected]: (state) => {
       state.status = Status.ERROR
-    }
+    },
+    [getProfileThunk.rejected]: () => authInitialState
   }
 })
 
 export const { logoutAction } = authSlice.actions
 
 export const authReducer = authSlice.reducer
+
+// dispatch(action) => profileReducer => authReducer => postsReducer

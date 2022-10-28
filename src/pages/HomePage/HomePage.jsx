@@ -1,4 +1,7 @@
+import { useLocation } from "react-router-dom";
+
 const HomePage = () => {
+  
   return (
     <>
       <div className="p-5 mb-4 bg-white border rounded-3">

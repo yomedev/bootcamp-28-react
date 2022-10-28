@@ -2,7 +2,7 @@ import { omit } from 'lodash';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { loginThunk } from '../../redux/auth/thunk.auth';
 import { createUserService } from '../../services/usersService';
 
@@ -19,7 +19,6 @@ const initialState = {
 
 export const JoinPage = () => {
   const dispatch = useDispatch()
-  const navigate = useNavigate()
   
   const [isLoading, setIsLoading] = useState(false);
   const [values, setValues] = useState(initialState);
@@ -34,9 +33,6 @@ export const JoinPage = () => {
     createUserService(values)
       .then(() => {
         dispatch(loginThunk(omit(values, 'first_name', 'last_name'))).unwrap()
-      })
-      .then(() => {
-        navigate('/', {replace: true})
       })
       .catch(() => console.log('error'))
     setIsLoading(true);
